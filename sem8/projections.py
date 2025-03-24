@@ -2,15 +2,15 @@ import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 
-# projection = ccrs.Mercator()
+# projection = ccrs.Mercator(central_longitude=0)
 # fig, ax = plt.subplots(figsize=(10, 5), subplot_kw={'projection': projection})
 # ax.stock_img()
 # ax.coastlines()
-# ax.gridlines(color="k")
-# plt.title("Mercator Projection")
+# # ax.gridlines(color="k")
+# plt.title("PlateCarree Projection")
 # plt.show()
 # plt.close()
-#
+
 # projection = ccrs.PlateCarree()
 # fig, ax = plt.subplots(figsize=(10, 5), subplot_kw={'projection': projection})
 # ax.coastlines()
@@ -19,11 +19,11 @@ import cartopy.feature as cfeature
 # plt.show()
 
 # for long in range(-180, 180, 30):
-#     projection = ccrs.Orthographic(central_longitude=long, central_latitude=0)
+#     projection = ccrs.Orthographic(central_longitude=long, central_latitude=90)
 #     fig, ax = plt.subplots(figsize=(10, 5), subplot_kw={'projection': projection})
-#     ax.add_feature(cfeature.LAND, zorder=0)
-#     ax.add_feature(cfeature.BORDERS, zorder=1)
-#     ax.add_feature(cfeature.COASTLINE, zorder=2)
+#     ax.add_feature(cfeature.LAND, zorder=0, color="pink")
+#     # ax.add_feature(cfeature.BORDERS, zorder=1)
+#     # ax.add_feature(cfeature.COASTLINE, zorder=2)
 #     ax.gridlines(color="k")
 #     plt.title(f"Orthographic Projection, central longitude = {long}")
 #     plt.show()
@@ -46,7 +46,7 @@ import cartopy.feature as cfeature
 # plt.title(f"Stereographic Projection")
 # plt.show()
 
-# projection = ccrs.NearsidePerspective(central_longitude=37, central_latitude=55, satellite_height=400000)
+# projection = ccrs.NearsidePerspective(central_longitude=37, central_latitude=55, satellite_height=10000)
 # fig, ax = plt.subplots(figsize=(10, 5), subplot_kw={'projection': projection})
 # ax.add_feature(cfeature.LAND, zorder=0)
 # ax.add_feature(cfeature.BORDERS, zorder=1)
@@ -56,12 +56,13 @@ import cartopy.feature as cfeature
 # plt.title(f"NearsidePerspective Projection")
 # plt.show()
 
-projection = ccrs.SouthPolarStereo()
-fig, ax = plt.subplots(figsize=(5, 5), subplot_kw={'projection': projection})
-ax.add_feature(cfeature.LAND, zorder=0)
-ax.add_feature(cfeature.BORDERS, zorder=1)
-ax.add_feature(cfeature.STATES, zorder=2)
-ax.add_feature(cfeature.COASTLINE, zorder=2)
-ax.gridlines(color="k")
-plt.title(f"SouthPolarStereo Projection")
-plt.show()
+# projection = ccrs.NorthPolarStereo(central_longitude=90)
+# fig, ax = plt.subplots(figsize=(5, 5), subplot_kw={'projection': projection})
+# ax.add_feature(cfeature.LAND, zorder=0)
+# ax.add_feature(cfeature.BORDERS, zorder=1)
+# ax.add_feature(cfeature.STATES, zorder=2)
+# ax.add_feature(cfeature.COASTLINE, zorder=2)
+# ax.gridlines(color="k")
+# ax.set_extent([0, 180, 60, 90], ccrs.PlateCarree())
+# plt.title(f"SouthPolarStereo Projection")
+# plt.show()

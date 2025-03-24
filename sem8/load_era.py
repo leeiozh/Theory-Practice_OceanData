@@ -56,7 +56,3 @@ request = {
 
 client = cdsapi.Client()
 client.retrieve(dataset, request).download()
-
-
-client = cdsapi.Client()
-client.retrieve(dataset, request).download()

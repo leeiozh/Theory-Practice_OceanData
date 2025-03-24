@@ -1,6 +1,7 @@
 from netCDF4 import Dataset
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
+import cartopy.feature as cfeature
 import cartopy.io.shapereader as shpreader
 import pickle
 import numpy as np
@@ -10,14 +11,18 @@ import cmaps
 
 TR = ccrs.PlateCarree()
 
-fig, ax = plt.subplots(figsize=(10, 10), subplot_kw={"projection": TR})
+fig, ax = plt.subplots(figsize=(10, 10), subplot_kw={"projection": ccrs.Robinson(central_longitude=37)})
+# ax.set_global()
+ax.set_extent([37.4, 37.93, 55.76, 56.2], TR)
+ax.set_extent([37, 38.5, 55., 57], TR)
+ax.add_feature(cfeature.STATES, zorder=1)
 
 ds = Dataset("Mar_02_2025_60273521_0183_trimmed.nc")
 
 lons = ds.variables["lon"][:]
 lats = ds.variables["lat"][:]
 
-ax.set_extent([37 + 42 / 60 + 9 / 3600, 37 + 43 / 60 + 1 / 3600, 55 + 58 / 60 + 19 / 3600, 55 + 59 / 60 + 1 / 3600], TR)
+# ax.set_extent([37 + 42 / 60 + 9 / 3600, 37 + 43 / 60 + 1 / 3600, 55 + 58 / 60 + 19 / 3600, 55 + 59 / 60 + 1 / 3600], TR)
 
 # ax.set_extent([lons.min() - 0.2, lons.max() + 0.1, lats.min() - 0.1, lats.max() + 0.1], TR)
 
@@ -51,11 +56,10 @@ with open('pirogovka', "rb") as poly_file:
 # lake_geoms = [rec.geometry for rec in reader.records() if "Пироговское" in rec.attributes.get("name", "")]
 
 ax.add_geometries(lake_geoms, crs=TR, facecolor='none', edgecolor='k')
-ax.text(37.708, 55.9816, "Пироговское водохранилище")
-
+# ax.text(37.708, 55.9816, "Пироговское водохранилище", transform=TR)
 ax.plot(lons, lats, transform=TR, label="Трек", c="k", lw=2)
 bb = ax.scatter(lons, lats, c=ds["wspd"][:], transform=TR,  lw=2, cmap="turbo")
-plt.colorbar(bb)
+# plt.colorbar(bb)
 ax.legend(loc="lower right")
 
 plt.savefig("test0.png", bbox_inches='tight')
